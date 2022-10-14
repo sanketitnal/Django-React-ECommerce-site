@@ -1,0 +1,9 @@
+.homepage-container {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 90vh;
+}
+
+.productcard-anchor {
+    text-decoration: none;
+}

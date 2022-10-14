@@ -1,0 +1,16 @@
+.productcard {
+    width: 18rem;
+    height: 25rem;
+    overflow: hidden;
+}
+
+.productcard-title {
+    height: 4.5rem;
+    overflow: hidden;
+}
+
+.productrating-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px;
+}

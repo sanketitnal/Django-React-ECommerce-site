@@ -1,0 +1,15 @@
+:root {
+    --footer-height: 100px;
+}
+
+main {
+    min-height: calc(100vh - var(--footer-height));
+}
+
+.check {
+    border: 1px solid black;
+}
+
+.footer {
+    height: var(--footer-height);
+}
