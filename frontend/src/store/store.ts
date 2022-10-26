@@ -7,11 +7,18 @@ import {UserState} from "./user/types";
 const userPreloadedState: UserState = {
     loginProcess: {
         loading: false,
-        error: null
+        error: null,
+        success: null
     },
     registerProcess: {
         loading: false,
-        error: null
+        error: null,
+        success: null
+    },
+    updateProcess: {
+        loading: false,
+        error: null,
+        success: null
     },
     userInfo: null
 }

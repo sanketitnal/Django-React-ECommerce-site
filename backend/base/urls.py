@@ -9,4 +9,6 @@ urlpatterns = [
     path("user/login/", BaseAppTokenObtainView.as_view(), name="token_obtain_pair"),
     path("user/register/", view=views.registerUser, name="user_register"),
     path("users/", view=views.getAllUsers, name="users_all"),
+    path("cart/add/", view=views.addToShoppingCart, name="cart_add"),
+    path("user/update/", view=views.updateUserName, name="user_update"),
 ]

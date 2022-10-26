@@ -22,6 +22,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, null=False)
     countInStock = models.IntegerField(null=False, default=0)
     createdAt = models.DateTimeField(auto_now_add=True)
+    maxOrderQuantity = models.IntegerField(default=5)
 
     def __str__(self):
         return self.name
@@ -98,3 +99,8 @@ class ItemsInCart(models.Model):
         Product, on_delete=models.CASCADE, null=False, blank=False
     )
     quantity = models.IntegerField(null=False, blank=False, default=0)
+
+    def __str__(self):
+        return "user={}, product={}, quantity={}".format(
+            self.user.username, self.product._id, self.quantity
+        )

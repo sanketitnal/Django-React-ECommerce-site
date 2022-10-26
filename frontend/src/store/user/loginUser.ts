@@ -51,7 +51,8 @@ export const loginUserFulfilled = (state:any, action:any) => {
     let userInfo:User = action.payload;
     let loginSuccessProcessState:ProcessState = {
         loading: false,
-        error: null
+        error: null,
+        success: true
     }
     state.loginProcess = loginSuccessProcessState;
     state.userInfo = userInfo;
@@ -61,7 +62,8 @@ export const loginUserFulfilled = (state:any, action:any) => {
 export const loginUserRejected = (state:any, action:any) => {
     let loginFailureProcessState:ProcessState = {
         loading: false,
-        error: action.payload
+        error: action.payload,
+        success: false
     }
     state.loginProcess = loginFailureProcessState;
 }
@@ -69,7 +71,8 @@ export const loginUserRejected = (state:any, action:any) => {
 export const preLoginAttemptSetupReducer = (state:any, action:any) => {
     let loginProcessState:ProcessState = {
         loading: true,
-        error: null
+        error: null,
+        success: null
     }
     state.loginProcess = loginProcessState;
 }

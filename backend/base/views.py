@@ -1,3 +1,4 @@
+from itertools import product
 from django.shortcuts import render
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
@@ -8,7 +9,7 @@ from rest_framework.response import Response as REST_Response
 from rest_framework.exceptions import NotFound
 from rest_framework import status
 
-from base.models import Product
+from base.models import Product, ItemsInCart
 import base.serializers as model_serializer
 
 # Create your views here.
@@ -99,3 +100,85 @@ def registerUser(request):
     userJWT_in_json = model_serializer.UserWithTokenSerializer(user, many=False)
 
     return REST_Response(userJWT_in_json.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def addToShoppingCart(request):
+    try:
+        user = request.user
+        data = request.data
+        if "product_id" not in data or "quantity" not in data:
+            return REST_Response(
+                {"message": "product_id, quantity is required"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        product_id = int(data["product_id"])
+        product = Product.objects.get(_id=product_id)
+        order_quantity = int(data["quantity"])
+
+        productInCart = ItemsInCart.objects.filter(product=product, user=user).first()
+        if (
+            (productInCart is not None)
+            and (order_quantity + productInCart.quantity > product.maxOrderQuantity)
+        ) or order_quantity > product.maxOrderQuantity:
+            return REST_Response(
+                {
+                    "message": "Maximum order quantity allowed in cart = {}".format(
+                        product.maxOrderQuantity
+                    )
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if productInCart is not None:
+            productInCart.quantity = productInCart.quantity + order_quantity
+            productInCart.save()
+            print(productInCart)
+        else:
+            newItem = ItemsInCart(user=user, product=product, quantity=order_quantity)
+            newItem.save()
+    except ValueError:
+        return REST_Response(
+            {"message": "product_id, quantity should be integer"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    except Product.DoesNotExist:
+        return REST_Response(
+            {"message": "Product for product_id={} does not exist".format(product_id)},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    except:
+        return REST_Response(
+            {"message": "Unknown internal server error"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+    return REST_Response({"message": "Success"})
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def updateUserName(request):
+    try:
+        user = request.user
+        try:
+            user.first_name, user.last_name = (
+                request.data["firstName"],
+                request.data["lastName"],
+            )
+        except:
+            return REST_Response(
+                {"message": "request must contain firstName and lastName information"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        user.save()
+    except:
+        return REST_Response(
+            {"message": "Internal Server Error"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+    return REST_Response(
+        {"firstName": user.first_name, "lastName": user.last_name},
+        status=status.HTTP_200_OK,
+    )

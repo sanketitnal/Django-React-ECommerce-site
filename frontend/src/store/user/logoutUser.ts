@@ -8,6 +8,7 @@ export const logoutUserReducer = (state:any) => {
     let loggedOutUserProcessState:ProcessState = {
         loading: false,
         error: null,
+        success: true
     }
     state.loginProcess = loggedOutUserProcessState;
     state.userInfo = null;

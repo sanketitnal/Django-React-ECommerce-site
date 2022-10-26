@@ -53,7 +53,8 @@ export const registerUserFulfilled = (state:any, action:any) => {
     let userInfo:User = action.payload;
     let registrationSuccessProcessState:ProcessState = {
         loading: false,
-        error: null
+        error: null,
+        success: true
     }
     state.registerProcess = registrationSuccessProcessState;
     state.userInfo = userInfo;
@@ -63,7 +64,8 @@ export const registerUserFulfilled = (state:any, action:any) => {
 export const registerUserRejected = (state:any, action:any) => {
     let registrationFailureProcessState:ProcessState = {
         loading: false,
-        error: action.payload
+        error: action.payload,
+        success: false
     }
     state.registerProcess = registrationFailureProcessState;
 }
@@ -71,7 +73,8 @@ export const registerUserRejected = (state:any, action:any) => {
 export const preRegisterAttemptSetupReducer = (state:any) => {
     let preregistrationProcessState:ProcessState = {
         loading: true,
-        error: null
+        error: null,
+        success: null
     }
     state.registerProcess = preregistrationProcessState;
 }

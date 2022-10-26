@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { Form, Button, Spinner, Alert } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUserThunk } from '../../store/user/updateUser';
+import {preUpdateAttempSetup} from '../../store/user/userSlice';
 import "./profileform.css";
 
-type Props = {}
-
-const ProfileForm = (props: Props) => {
-    const { userInfo } = useSelector((store:any) => store.user);
+const ProfileForm = (props) => {
+    const { userInfo } = useSelector((store) => store.user);
     const [edit, setEdit] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const dispatch = useDispatch();
+    const {loading, error, success} = useSelector((store) => store.user.updateProcess);
+
+    const onProfileUpdateRequest = (event) => {
+        event.preventDefault();
+        dispatch(preUpdateAttempSetup());
+        dispatch(updateUserThunk({firstName, lastName, token: userInfo.access}));
+    }
 
     useEffect(() => {
         if(userInfo) {
@@ -61,15 +69,14 @@ const ProfileForm = (props: Props) => {
                     />
                 </Form.Group>
 
-            {/*
-              <Button variant="primary" type="submit" onClick={loginSubmitHandler} disabled={loading} >
+              <Button variant="primary" type="submit" onClick={onProfileUpdateRequest} disabled={loading || !edit} >
                 {loading && <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true"/>}
-                Login
+                Update
               </Button>
-              &nbsp; New user? <Link to="/register">Register</Link>
-              <br />
-              <br />
-        {error && <Alert key="danger" variant="danger">{error.message}</Alert>}*/}
+                <br />
+                <br />
+                {error && <Alert key="danger" variant="danger">{error.message}</Alert>}
+                {success && <Alert key="success" variant="success">Successfully updated</Alert>}
             </Form>
         );
     } else {

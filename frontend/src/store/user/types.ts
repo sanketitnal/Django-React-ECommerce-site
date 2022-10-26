@@ -1,12 +1,14 @@
 export interface UserState {
     loginProcess: ProcessState,
     registerProcess: ProcessState,
+    updateProcess: ProcessState,
     userInfo: User | null
 }
 
 export interface ProcessState {
     loading: boolean,
-    error: Error | null
+    error: Error | null,
+    success: boolean | null
 }
 
 export interface User {
@@ -25,6 +27,12 @@ export interface UserError {
 export interface UserLoginDetails {
     username: string,
     password: string
+}
+
+export interface UserProfileDetails {
+    firstName: string,
+    lastName: string,
+    token: string | null
 }
 
 export interface UserRegisterDetails {
