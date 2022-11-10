@@ -4,11 +4,12 @@ from base.auth.tokenviews import BaseAppTokenObtainView
 
 urlpatterns = [
     path("", view=views.getRoutes),
-    path("products/", view=views.getProducts, name="all_products"),
+    path("product/all/", view=views.getProducts, name="product_all"),
     path("product/<int:id>", view=views.getProduct, name="product_info"),
     path("user/login/", BaseAppTokenObtainView.as_view(), name="token_obtain_pair"),
     path("user/register/", view=views.registerUser, name="user_register"),
-    path("users/", view=views.getAllUsers, name="users_all"),
-    path("cart/add/", view=views.addToShoppingCart, name="cart_add"),
+    path("user/all/", view=views.getAllUsers, name="users_all"),
     path("user/update/", view=views.updateUserName, name="user_update"),
+    path("cart/add/", view=views.addToShoppingCart, name="cart_add"),
+    path("cart/get/", view=views.getShoppingCart, name="cart_get"),
 ]

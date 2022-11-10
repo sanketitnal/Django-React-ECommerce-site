@@ -1,6 +1,5 @@
 import "./productdetail.css"
 import {Container, Image, Row, Col} from "react-bootstrap";
-import products from "../../products.js";
 import ProductType from "../../types/product";
 import ProductDetailCard from "../ProductDetailCard/ProductDetailCard";
 import PriceDetails from "../PriceDetails/PriceDetails";
@@ -22,7 +21,8 @@ const defaultProductDetail:ProductType = {
     price: 0,
     countInStock: 0,
     rating: 0,
-    numReviews: 0
+    numReviews: 0,
+    maxOrderQuantity: 0,
 }
 
 const ProductDetail = ({productId}: Props) => {
@@ -30,10 +30,11 @@ const ProductDetail = ({productId}: Props) => {
     const options = {};
     const {loading, error, result} = useFetch({url, options});
     const [productDetails, setProductDetails] = useState<ProductType>(defaultProductDetail);
-    
+
     useEffect(() => {
         if(result) {
             setProductDetails(result);
+            console.log(result);
         }
     }, [result]);
 
@@ -50,7 +51,7 @@ const ProductDetail = ({productId}: Props) => {
                     </Col>
 
                     <Col className="p-0 pt-2" sm={12} md={4} lg={3}>
-                        <PriceDetails price={productDetails.price} quantity={productDetails.countInStock}/>
+                        <PriceDetails price={productDetails.price} stock={productDetails.countInStock} quantity={productDetails.maxOrderQuantity} productId={productId}/>
                     </Col>
                 </Row>
             </Container>

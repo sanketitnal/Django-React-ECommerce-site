@@ -100,7 +100,10 @@ class ItemsInCart(models.Model):
     )
     quantity = models.IntegerField(null=False, blank=False, default=0)
 
+
+"""
     def __str__(self):
         return "user={}, product={}, quantity={}".format(
             self.user.username, self.product._id, self.quantity
         )
+"""

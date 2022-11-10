@@ -9,7 +9,7 @@ from rest_framework.response import Response as REST_Response
 from rest_framework.exceptions import NotFound
 from rest_framework import status
 
-from base.models import Product, ItemsInCart
+from base.models import Product, ItemsInCart, ItemsInCart
 import base.serializers as model_serializer
 
 # Create your views here.
@@ -108,15 +108,15 @@ def addToShoppingCart(request):
     try:
         user = request.user
         data = request.data
-        if "product_id" not in data or "quantity" not in data:
+        if "productId" not in data or "orderQuantity" not in data:
             return REST_Response(
-                {"message": "product_id, quantity is required"},
+                {"message": "productId, orderQuantity is required"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        product_id = int(data["product_id"])
+        product_id = int(data["productId"])
         product = Product.objects.get(_id=product_id)
-        order_quantity = int(data["quantity"])
+        order_quantity = int(data["orderQuantity"])
 
         productInCart = ItemsInCart.objects.filter(product=product, user=user).first()
         if (
@@ -125,7 +125,7 @@ def addToShoppingCart(request):
         ) or order_quantity > product.maxOrderQuantity:
             return REST_Response(
                 {
-                    "message": "Maximum order quantity allowed in cart = {}".format(
+                    "message": "You have reached maximum order quantity allowed in a cart = {}".format(
                         product.maxOrderQuantity
                     )
                 },
@@ -155,6 +155,31 @@ def addToShoppingCart(request):
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
     return REST_Response({"message": "Success"})
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def updateItemQuantityInCart(request):
+    try:
+        user = request.user
+
+    except:
+        pass
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getShoppingCart(request):
+    try:
+        user = request.user
+        items_in_cart = ItemsInCart.objects.filter(user=user)
+    except:
+        return REST_Response(
+            {"message": "Internal Server Error"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+    item_in_cart_json = model_serializer.ItemsInCartSerializer(items_in_cart, many=True)
+    return REST_Response(item_in_cart_json.data, status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])

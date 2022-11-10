@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userSliceReducer from './user/userSlice';
+import cartSliceReducer from './cart/cartSlice';
 import {UserState} from "./user/types";
 
 ////////////////////////////////////////////////////////////////////
@@ -28,10 +29,18 @@ if(localStorage.getItem("userInfo")) {
 ////////////////////////////////////////////////////////////////////
 
 const initialState = {
-    user: userPreloadedState
+    user: userPreloadedState,
+    cart: {
+        addtocartProcess: {
+            loading: false,
+            error: null,
+            success: null
+        }
+    }
 };
 const rootReducer = { 
-    user: userSliceReducer
+    user: userSliceReducer,
+    cart: cartSliceReducer
 }
 const store = configureStore({
     reducer: rootReducer,

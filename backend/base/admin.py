@@ -7,6 +7,7 @@ from base.models import (
     ShippingAddress,
     PaymentMethod,
     ProductCategory,
+    ItemsInCart,
 )
 
 # Register your models here.
@@ -19,3 +20,4 @@ admin.site.register(OrderItem)
 admin.site.register(ShippingAddress)
 admin.site.register(PaymentMethod)
 admin.site.register(ProductCategory)
+admin.site.register(ItemsInCart)

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
-from base.models import Product
+from base.models import Product, ItemsInCart
 from django.contrib.auth.models import User
 
 
@@ -38,4 +38,12 @@ class UserWithTokenSerializer(UserSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
+        fields = "__all__"
+
+
+class ItemsInCartSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+
+    class Meta:
+        model = ItemsInCart
         fields = "__all__"

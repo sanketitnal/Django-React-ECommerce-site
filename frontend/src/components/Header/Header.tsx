@@ -35,7 +35,7 @@ const Header = (props: Props) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home"><i className="fa-solid fa-cart-shopping"></i>Cart</Nav.Link>
+            <Nav.Link href="/cart"><i className="fa-solid fa-cart-shopping"></i>Cart</Nav.Link>
             {userInfo ? <DropDownComponent username={userInfo.firstName}/>:<Nav.Link href="/login"><i className="fa-solid fa-user"></i>Login</Nav.Link>}
           </Nav>
         </Navbar.Collapse>

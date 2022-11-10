@@ -8,7 +8,8 @@ type ProductType = {
     price: number,
     countInStock: number,
     rating: number,
-    numReviews: number
+    numReviews: number,
+    maxOrderQuantity: number,
 }
 
 export default ProductType;
