@@ -1,0 +1,28 @@
+.cart-card-container {
+    height: 7rem;
+    margin-top: 15px;
+    padding: 0px;
+}
+
+.cart-card-image {
+    height: 100%;
+    float: left;
+}
+
+.cart-card-heading {
+    max-width: 250px;
+    height: 100%;
+    padding-left: 10px;
+    font-size: 1.1rem;
+}
+
+.cart-card-inline-flex-container {
+    vertical-align: top;
+    display: inline-flex;
+    align-items: center;
+}
+
+.cart-card-price {
+    height: 100%;
+    padding-left: 10px;
+}

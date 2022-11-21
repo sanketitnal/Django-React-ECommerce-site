@@ -207,3 +207,59 @@ def updateUserName(request):
         {"firstName": user.first_name, "lastName": user.last_name},
         status=status.HTTP_200_OK,
     )
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def deleteItemInCart(request):
+    try:
+        user = request.user
+        try:
+            productId = request.data["productId"]
+            ItemsInCart.objects.get(
+                product=Product.objects.get(pk=productId), user=user
+            ).delete()
+        except:
+            return REST_Response(
+                {"message": "Bad Request"}, status=status.HTTP_400_BAD_REQUEST
+            )
+    except:
+        return REST_Response(
+            {"message": "Internal Server Error"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+    return REST_Response({"message": "success"}, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def updateItemInCartQuantity(request):
+    try:
+        user = request.user
+        try:
+            print(request.data)
+            productId = request.data["productId"]
+            newQuantity = request.data["newQuantity"]
+            product = Product.objects.get(pk=productId)
+            item_in_cart = ItemsInCart.objects.get(user=user, product=product)
+            if newQuantity > product.maxOrderQuantity:
+                return REST_Response(
+                    {
+                        "message": "Maximum order quantity = {}".format(
+                            product.maxOrderQuantity
+                        )
+                    },
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+        except:
+            return REST_Response(
+                {"message": "Bad Request"}, status=status.HTTP_400_BAD_REQUEST
+            )
+        item_in_cart.quantity = newQuantity
+        item_in_cart.save()
+    except:
+        return REST_Response(
+            {"message": "Internal Server Error"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+    return REST_Response({"message": "success"}, status=status.HTTP_200_OK)

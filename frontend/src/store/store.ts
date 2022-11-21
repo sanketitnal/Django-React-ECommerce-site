@@ -35,7 +35,15 @@ const initialState = {
             loading: false,
             error: null,
             success: null
-        }
+        },
+        loadCartProcess: {
+            loading: false,
+            error: null,
+            success: null
+        },
+        cartItems: null,
+        cartItemsIsLoading: null,
+        cartItemsError: null
     }
 };
 const rootReducer = { 

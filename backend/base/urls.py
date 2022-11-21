@@ -12,4 +12,6 @@ urlpatterns = [
     path("user/update/", view=views.updateUserName, name="user_update"),
     path("cart/add/", view=views.addToShoppingCart, name="cart_add"),
     path("cart/get/", view=views.getShoppingCart, name="cart_get"),
+    path("cart/delete/", view=views.deleteItemInCart, name="cart_item_delete"),
+    path("cart/update/", view=views.updateItemInCartQuantity, name="cart_item_update"),
 ]

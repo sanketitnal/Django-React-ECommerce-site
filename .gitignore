@@ -23,3 +23,5 @@
 /frontend/yarn-error.log*
 
 /penv
+__pycache__*
+*.pyc
