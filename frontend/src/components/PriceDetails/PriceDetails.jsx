@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { preAddToCartSetup } from "../../store/cart/cartSlice";
 import { addToCartThunk } from "../../store/cart/addToCart";
+import { useNavigate } from 'react-router-dom';
 
 
 const PriceDetails = ({price, quantity, stock, productId}) => {
@@ -11,19 +12,24 @@ const PriceDetails = ({price, quantity, stock, productId}) => {
     const { loading, error, success } = useSelector((store) => store.cart.addtocartProcess);
     const { userInfo } = useSelector((store) => store.user);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         //console.log(userInfo);
     }, []);
 
     const addToCart = (e) => {
-        dispatch(preAddToCartSetup());
-        const payload = {
-            productId,
-            orderQuantity: parseInt(squant),
-            token: userInfo.access
+        if(userInfo === null) {
+            navigate("/login?redirectback=true");
+        } else {
+            dispatch(preAddToCartSetup());
+            const payload = {
+                productId,
+                orderQuantity: parseInt(squant),
+                token: userInfo.access
+            }
+            dispatch(addToCartThunk(payload));
         }
-        dispatch(addToCartThunk(payload));
     }
 
     return (

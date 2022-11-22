@@ -21,13 +21,18 @@ const CartPage = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(preLoadCartSetup());
-        dispatch(loadCartThunk({token: userInfo.access}));
-    }, []);
+        if(!userInfo) {
+            navigate("/login?redirectback=true");
+        }
+    }, [userInfo]);
+
 
     useEffect(() => {
-        console.log(loading, error, success);
-    }, [loading, error, success])
+        if(userInfo !== null) {
+            dispatch(preLoadCartSetup());
+            dispatch(loadCartThunk({token: userInfo.access}));
+        }
+    }, []);
 
     useEffect(()=>{
         if(cartItems) {
@@ -39,12 +44,6 @@ const CartPage = (props) => {
             setTotalCost(tCost);
         }
     }, [cartItems]);
-
-    useEffect(() => {
-        if(!userInfo) {
-            navigate("/login?redirectback=true");
-        }
-    }, [userInfo]);
 
     return (
         <>
