@@ -26,7 +26,7 @@ const defaultProductDetail:ProductType = {
 }
 
 const ProductDetail = ({productId}: Props) => {
-    const url = `http://localhost:8000/api/product/${productId}?format=json`;
+    const url = `/api/product/${productId}?format=json`;
     const options = {};
     const {loading, error, result} = useFetch({url, options});
     const [productDetails, setProductDetails] = useState<ProductType>(defaultProductDetail);

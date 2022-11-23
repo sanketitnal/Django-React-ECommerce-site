@@ -11,9 +11,8 @@ import { loadCartThunk } from "../../store/cart/loadCart";
 import { preLoadCartSetup } from "../../store/cart/cartSlice";
 
 const CartPage = (props) => {
-    const url = "http://localhost:8000/api/cart/get/";
     const { userInfo } = useSelector((state) => state.user);
-    const { loading, error, success } = useSelector((state) => state.cart.loadCartProcess);
+    const { loading, error } = useSelector((state) => state.cart.loadCartProcess);
     const { cartItems, cartItemsIsLoading, cartItemsError } = useSelector((state) => state.cart);
     const [totalCost, setTotalCost] = useState(0);
     
@@ -58,7 +57,7 @@ const CartPage = (props) => {
                         <Col style={{border: "0px solid black"}} xs={12} sm={9}>
                             <h3>Shopping Cart</h3>
                             <hr />
-                            {(!cartItems || cartItems.length == 0) ? <h5>No items in cart</h5>: ""}
+                            {(!cartItems || cartItems.length === 0) ? <h5>No items in cart</h5>: ""}
                             {cartItems && cartItems.map((item) =>
                                 <div style={{padding: "0px", margin: "0px"}} key={item._id}>
                                     <CartCard

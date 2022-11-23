@@ -22,7 +22,7 @@ const CartCard = ({productId, productName, price, quantity, maxQuantity, imagePa
     return (
         <>
         <div className="cart-card-container">
-            <img className="cart-card-image" src={"http://localhost:8000"+imagePath} />
+            <img className="cart-card-image" alt={productName} src={"http://localhost:8000"+imagePath} />
             <div className="cart-card-heading cart-card-inline-flex-container">{productName}</div>
             <div className="cart-card-heading cart-card-inline-flex-container">
                 <Form.Select aria-label="Select order quantity" value={tquant} onChange={onQuantityChange}>

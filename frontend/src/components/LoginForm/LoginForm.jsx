@@ -13,7 +13,7 @@ const LoginForm = (props) => {
     const dispatch = useDispatch();
     const { loading, error } = useSelector((store) => store.user.loginProcess);
     const { userInfo } = useSelector((store) => store.user);
-    const [searchParam, setSearchParam ] = useSearchParams();
+    const [searchParam ] = useSearchParams();
     const navigate = useNavigate();
 
     useEffect(() => {

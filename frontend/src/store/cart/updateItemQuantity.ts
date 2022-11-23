@@ -12,7 +12,7 @@ export const updateItemQuantityThunk = createAsyncThunk(
     async(detail:Detail, thunkAPI) => {
         console.log("Here");
         try {
-            const url = "http://localhost:8000/api/cart/update/";
+            const url = "/api/cart/update/";
             const options = {
                 method: "POST",
                 body: JSON.stringify({

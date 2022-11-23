@@ -7,7 +7,7 @@ export const updateUserThunk = createAsyncThunk(
         try {
             /////
             const token = "";
-            const url = "http://localhost:8000/api/user/update/";
+            const url = "/api/user/update/";
             const options = {
                 method: "POST",
                 body: JSON.stringify({

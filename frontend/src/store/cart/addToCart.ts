@@ -11,7 +11,7 @@ export const addToCartThunk = createAsyncThunk(
     'cart/add',
     async(orderDetail:OrderDetails, thunkAPI) => {
         try {
-            const url = "http://localhost:8000/api/cart/add/";
+            const url = "/api/cart/add/";
             const options = {
                 method: "POST",
                 body: JSON.stringify({

@@ -9,7 +9,7 @@ export const loadCartThunk = createAsyncThunk(
     'cart/load',
     async(userDetails:User, thunkAPI) => {
         try {
-            const url = "http://localhost:8000/api/cart/get/";
+            const url = "/api/cart/get/";
             const options = {
                 method: "GET",
                 headers: {

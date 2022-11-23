@@ -10,7 +10,7 @@ export const deleteItemInCartThink = createAsyncThunk(
     'cart/delete',
     async(details:Details, thunkAPI) => {
         try {
-            const url = "http://localhost:8000/api/cart/delete/";
+            const url = "/api/cart/delete/";
             const options = {
                 method: "POST",
                 body: JSON.stringify({

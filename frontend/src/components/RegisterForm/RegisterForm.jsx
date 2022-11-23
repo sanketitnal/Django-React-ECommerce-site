@@ -13,7 +13,7 @@ const RegisterForm = (props) => {
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState(false);
-  const [useSearchParam, setSearchParam] = useSearchParams();
+  const [useSearchParam] = useSearchParams();
   const dispatch = useDispatch();
 
   const { loading, error } = useSelector((store) => store.user.registerProcess);

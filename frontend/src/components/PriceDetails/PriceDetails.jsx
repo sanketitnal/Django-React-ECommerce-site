@@ -37,14 +37,14 @@ const PriceDetails = ({price, quantity, stock, productId}) => {
             <ListGroup.Item>
                 <div className="listgroup-container p-0 m-0">
                     <span className="p-0 m-0">Price:</span>
-                    <span className="p-0 m-0">&#36; {price}</span>
+                    <span className="p-0 m-0">&#8377;{price}</span>
                 </div>
             </ListGroup.Item>
 
             <ListGroup.Item>
                 <div className="listgroup-container p-0 m-0">
                     <span className="p-0 m-0">In stock:</span>
-                    <span className="p-0 m-0">{stock}</span>
+                    <span className="p-0 m-0">Yes</span>
                 </div>
             </ListGroup.Item>
 

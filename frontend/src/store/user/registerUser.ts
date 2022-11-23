@@ -6,7 +6,7 @@ export const registerUserThunk = createAsyncThunk(
     async(userRegisterDetails:UserRegisterDetails, thunkAPI) => {
         try {
             /////
-            const url = "http://localhost:8000/api/user/register/";
+            const url = "/api/user/register/";
             const options = {
                 method: "POST",
                 body: JSON.stringify({

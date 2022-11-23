@@ -1,7 +1,8 @@
 import {Navbar, Container, Nav, Dropdown} from 'react-bootstrap';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import { logoutUser } from "../../store/user/userSlice";
+import { Link } from "react-router-dom";
 
 type Props = {}
 
@@ -15,7 +16,7 @@ const DropDownComponent = ({username}:any) => {
       </Dropdown.Toggle>
 
       <Dropdown.Menu variant="dark">
-        <Dropdown.Item href="/profile">Profile</Dropdown.Item>
+        <Dropdown.Item as={Link} to="/profile">Profile</Dropdown.Item>
         <Dropdown.Item onClick={() => {
           dispatch(logoutUser());
         }}>Logout</Dropdown.Item>
@@ -31,12 +32,16 @@ const Header = (props: Props) => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="/">Store</Navbar.Brand>
+        
+        <Navbar.Brand as={Link} to="/">
+          Store
+        </Navbar.Brand>
+        
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/cart"><i className="fa-solid fa-cart-shopping"></i>Cart</Nav.Link>
-            {userInfo ? <DropDownComponent username={userInfo.firstName}/>:<Nav.Link href="/login"><i className="fa-solid fa-user"></i>Login</Nav.Link>}
+            <Nav.Link as={Link} to="/cart"><i className="fa-solid fa-cart-shopping"></i>Cart</Nav.Link>
+            {userInfo ? <DropDownComponent username={userInfo.firstName}/>:<Nav.Link as={Link} to="/login"><i className="fa-solid fa-user"></i>Login</Nav.Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>

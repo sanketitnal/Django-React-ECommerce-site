@@ -8,7 +8,7 @@ import {
 
 import HomePage from './Pages/HomePage/HomePage';
 import ProductDetails from './Pages/ProductDetailsPage/ProductDetailsPage';
-import LoginPage from './Pages/LoginPage/LoginPage'
+import LoginPage from './Pages/LoginPage/LoginPage';
 import RegisterPage from './Pages/RegisterPage/RegisterPage';
 import ProfilePage from './Pages/ProfilePage/ProfilePage';
 import CartPage from './Pages/CartPage/CartPage';

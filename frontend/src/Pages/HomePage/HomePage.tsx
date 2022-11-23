@@ -8,7 +8,7 @@ import LoadingErrorOrChild from '../../utils/LoadingErrorOrChild/LoadingErrorOrC
 import "./homepage.css";
 import useFetch from '../../utils/useFetch/useFetch';
 
-const url = "http://localhost:8000/api/product/all/?format=json";
+const url = "/api/product/all/?format=json";
 
 const HomePage = () => {
     const [products, setProducts] = useState<ProductType[]>([]);
